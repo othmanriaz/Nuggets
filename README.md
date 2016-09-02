@@ -1,2 +1,2 @@
 # Nuggets
-Personal Assistant
+Personal Assistant is an android application using CMUSphinx.
