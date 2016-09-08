@@ -33,12 +33,15 @@ package edu.cmu.pocketsphinx.demo;
 import android.Manifest;
 import android.app.Activity;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -60,7 +63,13 @@ import static android.widget.Toast.makeText;
 
 public class PocketSphinxActivity extends Activity implements
         RecognitionListener {
-    Button btn;
+
+
+
+    private int currentImage = 0;
+    private int numImages = 8;
+
+
     /* Named searches allow to quickly reconfigure the decoder */
     private static final String KWS_SEARCH = "wakeup";
     private static final String FORECAST_SEARCH = "forecast";
@@ -84,46 +93,98 @@ public class PocketSphinxActivity extends Activity implements
     {
         super.onCreate(state);
         setContentView(R.layout.main);
+
         final RippleBackground rippleBackground=(RippleBackground)findViewById(R.id.content);
-        ImageView imageView=(ImageView)findViewById(R.id.centerImage);
+        final ImageView imageView=(ImageView)findViewById(R.id.centerImage);
+
+        final Animation shake = AnimationUtils.loadAnimation(this, R.anim.shake);
+
+        final Animation animTranslate = AnimationUtils.loadAnimation(this, R.anim.anim_translate);
+
+        final Animation animAlpha = AnimationUtils.loadAnimation(this, R.anim.anim_alpha);
+
+        final Animation animScale = AnimationUtils.loadAnimation(this, R.anim.anim_scale);
+
+        final Animation animRotate = AnimationUtils.loadAnimation(this, R.anim.anim_rotate);
+
+        final Animation animbounce = AnimationUtils.loadAnimation(this, R.anim.bounce);
+
+        final Animation myvanish = AnimationUtils.loadAnimation(this, R.anim.myvanish);
+
+        BounceInterpolator interpolator = new BounceInterpolator(0.2, 20);
+        animbounce.setInterpolator(interpolator);
+        animScale.setInterpolator(interpolator); //*********this is my fault******************
+//        animTranslate.setInterpolator(interpolator);
+//        myvanish.setInterpolator(interpolator);
+
+
+
+//        com.skyfishjy.library.RippleBackground colourChange =(com.skyfishjy.library.RippleBackground)findViewById(R.id.content)   ;
+//        colourChange.setBackgroundColor(Color.parseColor("#00ff00"));
+        //imageView.startAnimation(shake);    //b.startAnimation(shake);
+
 
         imageView.setOnClickListener(new View.OnClickListener() {
-            boolean istrue=false;
+            boolean istrue = false;
+
+            //            final ImageView iv=imageView;
+//            final Animation sh=shake;
             @Override
             public void onClick(View view) {
-                if(!istrue)
-                {
+                if (!rippleBackground.isRippleAnimationRunning()) {
                     rippleBackground.startRippleAnimation();
-                    istrue=true;
-                    Toast.makeText(getApplicationContext(),"Ripples start",Toast.LENGTH_LONG).show();
+                    currentImage++;
+                    currentImage = currentImage % numImages;
+                    switch (currentImage) {
+                        case 0:
+                            imageView.setImageResource(R.drawable.img2);
+                            imageView.startAnimation(animRotate);
+//                            imageView.startAnimation(myvanish);
+                            break;
+                        case 1:
+                            imageView.setImageResource(R.drawable.img3);
+                            imageView.startAnimation(animbounce);
+                            break;
+                        case 2:
+                            imageView.setImageResource(R.drawable.johny);
+                            imageView.startAnimation(animTranslate);
+                            break;
+                        case 3:
+                            imageView.setImageResource(R.drawable.img5);
+                            imageView.startAnimation(animAlpha);
+                            break;
+                        case 4:
+                            imageView.setImageResource(R.drawable.img6);
+                            imageView.startAnimation(animbounce);
+                            break;
+                        case 5:
+                            imageView.setImageResource(R.drawable.img7);
+                            imageView.startAnimation(animScale);
+                            break;
+                        case 6:
+                            imageView.setImageResource(R.drawable.dex);
+                            imageView.startAnimation(myvanish);
+                            //imageView.setImageResource();
+                            break;
+                        default:
+                            imageView.setImageResource(R.drawable.img1);
+                            imageView.startAnimation(animAlpha);
 
-
-                }else if(istrue)
-                {
+                    }
+//                    rippleBackground.startRippleAnimation();
+                    istrue = true;
+                    //imageView.startAnimation(shake);
+                    Toast.makeText(getApplicationContext(), "Ripples start", Toast.LENGTH_LONG).show();
+                } else {
                     rippleBackground.stopRippleAnimation();
-                    istrue=false;
-                    Toast.makeText(getApplicationContext(),"Ripples stop",Toast.LENGTH_LONG).show();
+                    istrue = false;
+                    imageView.startAnimation(shake);
+                    Toast.makeText(getApplicationContext(), "Ripples stop", Toast.LENGTH_LONG).show();
                 }
 
             }
         });
-//        final ImageView v = (ImageView) findViewById(R.id.centerImage);
-//        v.setOnTouchListener(new View.OnTouchListener() {
-//            @Override
-//            public boolean onTouch(View arg0, MotionEvent arg1) {
-//                switch (arg1.getAction()) {
-//                    case MotionEvent.ACTION_BUTTON_PRESS:{
-//                       rippleBackground.startRippleAnimation();
-//                        break;
-//                    }
-//                    case MotionEvent.ACTION_BUTTON_RELEASE:{
-//                       rippleBackground.stopRippleAnimation();
-//                        break;
-//                    }
-//                }
-//                return true;
-//            }
-//        });
+
         captions = new HashMap<String, Integer>();
         captions.put(KWS_SEARCH, R.string.kws_caption);
         captions.put(MENU_SEARCH, R.string.menu_caption);

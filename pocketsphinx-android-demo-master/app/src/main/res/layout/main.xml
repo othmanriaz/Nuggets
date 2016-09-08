@@ -45,17 +45,21 @@
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:id="@+id/content"
-            app:rb_color="#ff0000"
+            app:rb_color="@color/myred"
             app:rb_radius="32dp"
             app:rb_rippleAmount="4"
-            app:rb_duration="3000"
-            app:rb_scale="6">
+            app:rb_duration="5000"
+            app:rb_scale="15">
+            <!--app:rb_color="#ff0000"-->
+
+
+
             <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
                 android:layout_centerInParent="true"
                 android:id="@+id/centerImage"
-                android:src="@drawable/ref"/>
+                android:src="@drawable/img8"/>
         </com.skyfishjy.library.RippleBackground>
 
 
