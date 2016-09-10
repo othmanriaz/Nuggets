@@ -33,9 +33,12 @@ package edu.cmu.pocketsphinx.demo;
 import android.Manifest;
 import android.app.Activity;
 import android.content.pm.PackageManager;
+import android.content.res.Resources;
+import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.view.MotionEvent;
@@ -44,6 +47,7 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -52,6 +56,7 @@ import com.skyfishjy.library.RippleBackground;
 import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.Random;
 
 import edu.cmu.pocketsphinx.Assets;
 import edu.cmu.pocketsphinx.Hypothesis;
@@ -86,6 +91,11 @@ public class PocketSphinxActivity extends Activity implements
 
     private SpeechRecognizer recognizer;
     private HashMap<String, Integer> captions;
+  
+
+
+    ;
+
 
 
     @Override
@@ -93,6 +103,12 @@ public class PocketSphinxActivity extends Activity implements
     {
         super.onCreate(state);
         setContentView(R.layout.main);
+
+
+        final LinearLayout background = (LinearLayout) findViewById(R.id.myLinearLayout);
+        Resources res = getResources();
+        final TypedArray myImages = res.obtainTypedArray(R.array.image);
+        final Random random = new Random();
 
         final RippleBackground rippleBackground=(RippleBackground)findViewById(R.id.content);
         final ImageView imageView=(ImageView)findViewById(R.id.centerImage);
@@ -108,19 +124,30 @@ public class PocketSphinxActivity extends Activity implements
         final Animation animRotate = AnimationUtils.loadAnimation(this, R.anim.anim_rotate);
 
         final Animation animbounce = AnimationUtils.loadAnimation(this, R.anim.bounce);
+        final Animation clockwise=AnimationUtils.loadAnimation(this,R.anim.clockwise);
 
         final Animation myvanish = AnimationUtils.loadAnimation(this, R.anim.myvanish);
+        final Animation blink = AnimationUtils.loadAnimation(this, R.anim.blink);
+
+        final Animation fadeIn = AnimationUtils.loadAnimation(PocketSphinxActivity.this, R.anim.fade_in);
+
+
+        final Handler myHandler = new Handler();
+
 
         BounceInterpolator interpolator = new BounceInterpolator(0.2, 20);
         animbounce.setInterpolator(interpolator);
         animScale.setInterpolator(interpolator); //*********this is my fault******************
-//        animTranslate.setInterpolator(interpolator);
-//        myvanish.setInterpolator(interpolator);
+        clockwise.setInterpolator(interpolator);
 
 
 
-//        com.skyfishjy.library.RippleBackground colourChange =(com.skyfishjy.library.RippleBackground)findViewById(R.id.content)   ;
+
+
+       //com.skyfishjy.library.RippleBackground colourChange =(com.skyfishjy.library.RippleBackground)findViewById(R.id.content)   ;
+        //colourChange.setDrawingCacheBackgroundColor(Color.parseColor("#FF0000FF"));
 //        colourChange.setBackgroundColor(Color.parseColor("#00ff00"));
+
         //imageView.startAnimation(shake);    //b.startAnimation(shake);
 
 
@@ -131,44 +158,182 @@ public class PocketSphinxActivity extends Activity implements
 //            final Animation sh=shake;
             @Override
             public void onClick(View view) {
+                int randomInt=0;
+                int drawableID=0;
+
                 if (!rippleBackground.isRippleAnimationRunning()) {
-                    rippleBackground.startRippleAnimation();
+
+
+                    //rippleBackground.startRippleAnimation();
                     currentImage++;
                     currentImage = currentImage % numImages;
                     switch (currentImage) {
                         case 0:
-                            imageView.setImageResource(R.drawable.img2);
-                            imageView.startAnimation(animRotate);
+                            randomInt = random.nextInt(myImages.length());
+                            drawableID = myImages.getResourceId(randomInt, -1);
+                            background.setBackgroundResource(drawableID);
+                            //**********
+
+                                // background.startAnimation(fadeIn);
+
+                            //********
+
 //                            imageView.startAnimation(myvanish);
+                                imageView.setImageResource(R.drawable.img2);
+                                imageView.startAnimation(animRotate);
+                            myHandler.postDelayed(new Runnable() {
+                                public void run() {
+//                                    imageView.setImageResource(R.drawable.img2);
+//                                    imageView.startAnimation(animRotate);
+                                    background.getBackground().setAlpha(200);
+                                    rippleBackground.startRippleAnimation();
+                                }
+                            }, 4000);
+
+
+
+
                             break;
                         case 1:
+
+                            randomInt = random.nextInt(myImages.length());
+                            drawableID = myImages.getResourceId(randomInt, -1);
+                            background.setBackgroundResource(drawableID);
+                            //******
+
+                            //********
                             imageView.setImageResource(R.drawable.img3);
                             imageView.startAnimation(animbounce);
+
+
+                            myHandler.postDelayed(new Runnable() {
+                                public void run() {
+//                                    imageView.setImageResource(R.drawable.img2);
+//                                    imageView.startAnimation(animRotate);
+                                    background.getBackground().setAlpha(200);
+                                    rippleBackground.startRippleAnimation();
+                                }
+                            }, 4000);
+
                             break;
                         case 2:
+                            randomInt = random.nextInt(myImages.length());
+                            drawableID = myImages.getResourceId(randomInt, -1);
+                            background.setBackgroundResource(drawableID);
+                            //*******
+
+                            //*****
                             imageView.setImageResource(R.drawable.johny);
                             imageView.startAnimation(animTranslate);
+                            //for fading background image after 3 seconds
+                            myHandler.postDelayed(new Runnable() {
+                                public void run() {
+//                                    imageView.setImageResource(R.drawable.img2);
+//                                    imageView.startAnimation(animRotate);
+                                    background.getBackground().setAlpha(200);
+                                    rippleBackground.startRippleAnimation();
+                                }
+                            }, 4000);
+
+
                             break;
                         case 3:
+                            randomInt = random.nextInt(myImages.length());
+                            drawableID = myImages.getResourceId(randomInt, -1);
+                            background.setBackgroundResource(drawableID);
+
                             imageView.setImageResource(R.drawable.img5);
                             imageView.startAnimation(animAlpha);
+
+                            myHandler.postDelayed(new Runnable() {
+                                public void run() {
+
+                                    background.getBackground().setAlpha(200);
+                                    rippleBackground.startRippleAnimation();
+                                }
+                            }, 3000);
+
                             break;
                         case 4:
+                            randomInt = random.nextInt(myImages.length());
+                            drawableID = myImages.getResourceId(randomInt, -1);
+                            background.setBackgroundResource(drawableID);
+                            //*********
+
+                            //******
                             imageView.setImageResource(R.drawable.img6);
                             imageView.startAnimation(animbounce);
+                            // handler useed for fading background image after 3 seconds
+                            myHandler.postDelayed(new Runnable() {
+                                public void run() {
+
+                                    background.getBackground().setAlpha(200);
+                                    rippleBackground.startRippleAnimation();
+                                }
+                            }, 4000);
+
                             break;
                         case 5:
+                            randomInt = random.nextInt(myImages.length());
+                            drawableID = myImages.getResourceId(randomInt, -1);
+                            background.setBackgroundResource(drawableID);
+
                             imageView.setImageResource(R.drawable.img7);
                             imageView.startAnimation(animScale);
+
+
+                            // handler useed for fading background image after 3 seconds
+                            myHandler.postDelayed(new Runnable() {
+                                public void run() {
+
+                                    background.getBackground().setAlpha(200);
+                                    rippleBackground.startRippleAnimation();
+                                }
+                            }, 4000);
+
+
                             break;
                         case 6:
+                            randomInt = random.nextInt(myImages.length());
+                            drawableID = myImages.getResourceId(randomInt, -1);
+                            background.setBackgroundResource(drawableID);
+                            //
                             imageView.setImageResource(R.drawable.dex);
-                            imageView.startAnimation(myvanish);
+                            imageView.startAnimation(blink);
                             //imageView.setImageResource();
+
+                            // handler useed for fading background image after 3 seconds
+                            myHandler.postDelayed(new Runnable() {
+                                public void run() {
+
+                                    background.getBackground().setAlpha(200);
+                                    rippleBackground.startRippleAnimation();
+                                }
+                            }, 4000);
+
+
+
+
                             break;
                         default:
+                            randomInt = random.nextInt(myImages.length());
+                            drawableID = myImages.getResourceId(randomInt, -1);
+                            background.setBackgroundResource(drawableID);
+                            //
                             imageView.setImageResource(R.drawable.img1);
-                            imageView.startAnimation(animAlpha);
+                            imageView.startAnimation(clockwise);
+
+                            //handler used to fade background image
+                            myHandler.postDelayed(new Runnable() {
+                                public void run() {
+
+                                    background.getBackground().setAlpha(200);
+                                    rippleBackground.startRippleAnimation();
+                                }
+                            }, 4000);
+
+
+
 
                     }
 //                    rippleBackground.startRippleAnimation();
@@ -179,7 +344,12 @@ public class PocketSphinxActivity extends Activity implements
                     rippleBackground.stopRippleAnimation();
                     istrue = false;
                     imageView.startAnimation(shake);
-                    Toast.makeText(getApplicationContext(), "Ripples stop", Toast.LENGTH_LONG).show();
+                    //******
+                                //background.startAnimation(fadeIn);  //****this is gives better fading but it is temporary
+                   // background.getBackground().setAlpha(200);
+                    //******
+//                    Toast.makeText(getApplicationContext(), "Ripples stop", Toast.LENGTH_LONG).show();
+                    background.getBackground().setAlpha(1000);
                 }
 
             }

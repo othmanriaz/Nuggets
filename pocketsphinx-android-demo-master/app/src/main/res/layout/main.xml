@@ -3,6 +3,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="match_parent"
+    android:id="@+id/myLinearLayout"
     android:background="@drawable/umb"
     android:orientation="vertical"
     android:padding="16dp"
@@ -49,7 +50,7 @@
             app:rb_radius="32dp"
             app:rb_rippleAmount="4"
             app:rb_duration="5000"
-            app:rb_scale="15">
+            app:rb_scale="11">
             <!--app:rb_color="#ff0000"-->
 
 

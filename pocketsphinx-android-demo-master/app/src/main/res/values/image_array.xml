@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="image">
+
+        <item>@drawable/img99</item>
+        <item>@drawable/img11</item>
+        <item>@drawable/img22</item>
+        <item>@drawable/img33</item>
+        <item>@drawable/img44</item>
+        <item>@drawable/img55</item>
+        <item>@drawable/img66</item>
+        <item>@drawable/img77</item>
+    </array>
+</resources>
