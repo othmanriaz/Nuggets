@@ -10,5 +10,22 @@
         <item>@drawable/img55</item>
         <item>@drawable/img66</item>
         <item>@drawable/img77</item>
+        <item>@drawable/img78</item>
+        <item>@drawable/img79</item>
+        <item>@drawable/img80</item>
+        <item>@drawable/img81</item>
+        <item>@drawable/img82</item>
+        <item>@drawable/img83</item>
+
+
     </array>
 </resources>
+
+
+
+<!--<item>@drawable/air_ballon</item>-->
+<!--<item>@drawable/bicycle</item>-->
+<!--<item>@drawable/Egg_couple</item>-->
+<!--<item>@drawable/paris</item>-->
+<!--<item>@drawable/sandy</item>-->
+<!--<item>@drawable/Vintage_car</item>-->

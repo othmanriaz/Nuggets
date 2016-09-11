@@ -91,7 +91,7 @@ public class PocketSphinxActivity extends Activity implements
 
     private SpeechRecognizer recognizer;
     private HashMap<String, Integer> captions;
-  
+
 
 
     ;
@@ -101,6 +101,7 @@ public class PocketSphinxActivity extends Activity implements
     @Override
     public void onCreate(Bundle state)
     {
+
         super.onCreate(state);
         setContentView(R.layout.main);
 
@@ -141,10 +142,28 @@ public class PocketSphinxActivity extends Activity implements
         clockwise.setInterpolator(interpolator);
 
 
+        captions = new HashMap<String, Integer>();
+        captions.put(KWS_SEARCH, R.string.kws_caption);
+        captions.put(MENU_SEARCH, R.string.menu_caption);
+        captions.put(DIGITS_SEARCH, R.string.digits_caption);
+        captions.put(PHONE_SEARCH, R.string.phone_caption);
+        captions.put(FORECAST_SEARCH, R.string.forecast_caption);
+
+//        ((TextView) findViewById(R.id.caption_text))
+//                .setText("Preparing the recognizer");
+
+        int permissionCheck = ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.RECORD_AUDIO);
+        if (permissionCheck == PackageManager.PERMISSION_DENIED) {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.RECORD_AUDIO}, PERMISSIONS_REQUEST_RECORD_AUDIO);
+            return;
+        }
+//        runRecognizerSetup();
 
 
 
-       //com.skyfishjy.library.RippleBackground colourChange =(com.skyfishjy.library.RippleBackground)findViewById(R.id.content)   ;
+
+
+        //com.skyfishjy.library.RippleBackground colourChange =(com.skyfishjy.library.RippleBackground)findViewById(R.id.content)   ;
         //colourChange.setDrawingCacheBackgroundColor(Color.parseColor("#FF0000FF"));
 //        colourChange.setBackgroundColor(Color.parseColor("#00ff00"));
 
@@ -154,19 +173,28 @@ public class PocketSphinxActivity extends Activity implements
         imageView.setOnClickListener(new View.OnClickListener() {
             boolean istrue = false;
 
+
+
             //            final ImageView iv=imageView;
 //            final Animation sh=shake;
             @Override
             public void onClick(View view) {
-                int randomInt=0;
-                int drawableID=0;
+                int randomInt = 0;
+                int drawableID = 0;
+
 
                 if (!rippleBackground.isRippleAnimationRunning()) {
+//                    int permissionCheck = ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.RECORD_AUDIO);
+//                    if (permissionCheck == PackageManager.PERMISSION_DENIED) {
+//                        ActivityCompat.requestPermissions(getParent(), new String[]{Manifest.permission.RECORD_AUDIO}, PERMISSIONS_REQUEST_RECORD_AUDIO);
+//                        return;
+//                    }
 
-
+                    runRecognizerSetup();
                     //rippleBackground.startRippleAnimation();
                     currentImage++;
                     currentImage = currentImage % numImages;
+
                     switch (currentImage) {
                         case 0:
                             randomInt = random.nextInt(myImages.length());
@@ -174,23 +202,23 @@ public class PocketSphinxActivity extends Activity implements
                             background.setBackgroundResource(drawableID);
                             //**********
 
-                                // background.startAnimation(fadeIn);
+                            // background.startAnimation(fadeIn);
 
                             //********
 
 //                            imageView.startAnimation(myvanish);
-                                imageView.setImageResource(R.drawable.img2);
-                                imageView.startAnimation(animRotate);
+                            imageView.setImageResource(R.drawable.img2);
+                            imageView.startAnimation(animRotate);
                             myHandler.postDelayed(new Runnable() {
                                 public void run() {
 //                                    imageView.setImageResource(R.drawable.img2);
 //                                    imageView.startAnimation(animRotate);
                                     background.getBackground().setAlpha(200);
                                     rippleBackground.startRippleAnimation();
+                                    ((TextView) findViewById(R.id.caption_text))
+                                            .setText("Preparing the recognizer");//****preparing recognizer
                                 }
                             }, 4000);
-
-
 
 
                             break;
@@ -212,6 +240,8 @@ public class PocketSphinxActivity extends Activity implements
 //                                    imageView.startAnimation(animRotate);
                                     background.getBackground().setAlpha(200);
                                     rippleBackground.startRippleAnimation();
+                                    ((TextView) findViewById(R.id.caption_text))
+                                            .setText("Preparing the recognizer");//****preparing recognizer
                                 }
                             }, 4000);
 
@@ -232,6 +262,8 @@ public class PocketSphinxActivity extends Activity implements
 //                                    imageView.startAnimation(animRotate);
                                     background.getBackground().setAlpha(200);
                                     rippleBackground.startRippleAnimation();
+                                    ((TextView) findViewById(R.id.caption_text))
+                                            .setText("Preparing the recognizer");//****preparing recognizer
                                 }
                             }, 4000);
 
@@ -250,6 +282,8 @@ public class PocketSphinxActivity extends Activity implements
 
                                     background.getBackground().setAlpha(200);
                                     rippleBackground.startRippleAnimation();
+                                    ((TextView) findViewById(R.id.caption_text))
+                                            .setText("Preparing the recognizer");//****preparing recognizer
                                 }
                             }, 3000);
 
@@ -269,6 +303,8 @@ public class PocketSphinxActivity extends Activity implements
 
                                     background.getBackground().setAlpha(200);
                                     rippleBackground.startRippleAnimation();
+                                    ((TextView) findViewById(R.id.caption_text))
+                                            .setText("Preparing the recognizer");//****preparing recognizer
                                 }
                             }, 4000);
 
@@ -288,6 +324,8 @@ public class PocketSphinxActivity extends Activity implements
 
                                     background.getBackground().setAlpha(200);
                                     rippleBackground.startRippleAnimation();
+                                    ((TextView) findViewById(R.id.caption_text))
+                                            .setText("Preparing the recognizer");//****preparing recognizer
                                 }
                             }, 4000);
 
@@ -308,10 +346,10 @@ public class PocketSphinxActivity extends Activity implements
 
                                     background.getBackground().setAlpha(200);
                                     rippleBackground.startRippleAnimation();
+                                    ((TextView) findViewById(R.id.caption_text))
+                                            .setText("Preparing the recognizer");//****preparing recognizer
                                 }
                             }, 4000);
-
-
 
 
                             break;
@@ -329,10 +367,10 @@ public class PocketSphinxActivity extends Activity implements
 
                                     background.getBackground().setAlpha(200);
                                     rippleBackground.startRippleAnimation();
+                                    ((TextView) findViewById(R.id.caption_text))
+                                            .setText("Preparing the recognizer");//****preparing recognizer
                                 }
                             }, 4000);
-
-
 
 
                     }
@@ -345,33 +383,26 @@ public class PocketSphinxActivity extends Activity implements
                     istrue = false;
                     imageView.startAnimation(shake);
                     //******
-                                //background.startAnimation(fadeIn);  //****this is gives better fading but it is temporary
-                   // background.getBackground().setAlpha(200);
+                    //background.startAnimation(fadeIn);  //****this is gives better fading but it is temporary
+                    // background.getBackground().setAlpha(200);
                     //******
 //                    Toast.makeText(getApplicationContext(), "Ripples stop", Toast.LENGTH_LONG).show();
                     background.getBackground().setAlpha(1000);
+                    recognizer.stop(); //stop recognizer
+                    ((TextView) findViewById(R.id.caption_text))
+                            .setText("recognizer switched off");//****preparing recognizer
                 }
 
             }
         });
 
-        captions = new HashMap<String, Integer>();
-        captions.put(KWS_SEARCH, R.string.kws_caption);
-        captions.put(MENU_SEARCH, R.string.menu_caption);
-        captions.put(DIGITS_SEARCH, R.string.digits_caption);
-        captions.put(PHONE_SEARCH, R.string.phone_caption);
-        captions.put(FORECAST_SEARCH, R.string.forecast_caption);
 
-        ((TextView) findViewById(R.id.caption_text))
-                .setText("Preparing the recognizer");
+
+
 
         // Check if user has given permission to record audio
-        int permissionCheck = ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.RECORD_AUDIO);
-        if (permissionCheck == PackageManager.PERMISSION_DENIED) {
-            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.RECORD_AUDIO}, PERMISSIONS_REQUEST_RECORD_AUDIO);
-            return;
-        }
-        runRecognizerSetup();
+
+
 
 
     }
