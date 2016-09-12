@@ -163,9 +163,11 @@ public class PocketSphinxActivity extends Activity implements
 
 
 
-        //com.skyfishjy.library.RippleBackground colourChange =(com.skyfishjy.library.RippleBackground)findViewById(R.id.content)   ;
-        //colourChange.setDrawingCacheBackgroundColor(Color.parseColor("#FF0000FF"));
-//        colourChange.setBackgroundColor(Color.parseColor("#00ff00"));
+//        com.skyfishjy.library.RippleBackground colourChange =(com.skyfishjy.library.RippleBackground)findViewById(R.id.content)   ;
+//        colourChange.setDrawingCacheBackgroundColor(Color.parseColor("#FF0000FF"));
+////        colourChange.setBackgroundColor(Color.parseColor("#00ff00"));
+//        com.skyfishjy.library.RippleBackground colors=(com.skyfishjy.library.RippleBackground)findViewById(R.id.content);
+//        colors.setDrawingCacheBackgroundColor(Color.parseColor("#FF0000FF"));
 
         //imageView.startAnimation(shake);    //b.startAnimation(shake);
 
@@ -190,7 +192,7 @@ public class PocketSphinxActivity extends Activity implements
 //                        return;
 //                    }
 
-                    runRecognizerSetup();
+//                    runRecognizerSetup();
                     //rippleBackground.startRippleAnimation();
                     currentImage++;
                     currentImage = currentImage % numImages;
@@ -217,6 +219,7 @@ public class PocketSphinxActivity extends Activity implements
                                     rippleBackground.startRippleAnimation();
                                     ((TextView) findViewById(R.id.caption_text))
                                             .setText("Preparing the recognizer");//****preparing recognizer
+                                    runRecognizerSetup();
                                 }
                             }, 4000);
 
@@ -242,6 +245,7 @@ public class PocketSphinxActivity extends Activity implements
                                     rippleBackground.startRippleAnimation();
                                     ((TextView) findViewById(R.id.caption_text))
                                             .setText("Preparing the recognizer");//****preparing recognizer
+                                    runRecognizerSetup();
                                 }
                             }, 4000);
 
@@ -264,6 +268,7 @@ public class PocketSphinxActivity extends Activity implements
                                     rippleBackground.startRippleAnimation();
                                     ((TextView) findViewById(R.id.caption_text))
                                             .setText("Preparing the recognizer");//****preparing recognizer
+                                    runRecognizerSetup();
                                 }
                             }, 4000);
 
@@ -284,6 +289,7 @@ public class PocketSphinxActivity extends Activity implements
                                     rippleBackground.startRippleAnimation();
                                     ((TextView) findViewById(R.id.caption_text))
                                             .setText("Preparing the recognizer");//****preparing recognizer
+                                    runRecognizerSetup();
                                 }
                             }, 3000);
 
@@ -305,6 +311,7 @@ public class PocketSphinxActivity extends Activity implements
                                     rippleBackground.startRippleAnimation();
                                     ((TextView) findViewById(R.id.caption_text))
                                             .setText("Preparing the recognizer");//****preparing recognizer
+                                    runRecognizerSetup();
                                 }
                             }, 4000);
 
@@ -326,6 +333,7 @@ public class PocketSphinxActivity extends Activity implements
                                     rippleBackground.startRippleAnimation();
                                     ((TextView) findViewById(R.id.caption_text))
                                             .setText("Preparing the recognizer");//****preparing recognizer
+                                    runRecognizerSetup();
                                 }
                             }, 4000);
 
@@ -348,6 +356,7 @@ public class PocketSphinxActivity extends Activity implements
                                     rippleBackground.startRippleAnimation();
                                     ((TextView) findViewById(R.id.caption_text))
                                             .setText("Preparing the recognizer");//****preparing recognizer
+                                    runRecognizerSetup();
                                 }
                             }, 4000);
 
@@ -369,6 +378,7 @@ public class PocketSphinxActivity extends Activity implements
                                     rippleBackground.startRippleAnimation();
                                     ((TextView) findViewById(R.id.caption_text))
                                             .setText("Preparing the recognizer");//****preparing recognizer
+                                    runRecognizerSetup();
                                 }
                             }, 4000);
 
